@@ -18,7 +18,11 @@ const RoomResult = ({ roomSearchResults }) => {
               navigate(`/admin/edit-room/${room.id}`);
             };
             const handleBookClick = () => {
-              if (!hasValidId) return;
+              if (!hasValidId) {
+                console.warn('Cannot book room: missing room ID', room);
+                alert('This room is not available for booking. Please try another room.');
+                return;
+              }
               // Check if user is authenticated, if not redirect to login
               if (!ApiService.isAuthenticated()) {
                 navigate('/login', { state: { from: { pathname: `/room-details-book/${room.id}` } } });
@@ -86,9 +90,8 @@ const RoomResult = ({ roomSearchResults }) => {
                     <button
                       className="book-now-button"
                       onClick={handleBookClick}
-                      disabled={!hasValidId}
                     >
-                      {hasValidId ? 'View/Book Room' : 'View Unavailable'}
+                      View/Book Room
                     </button>
                   )}
                 </div>
