@@ -70,8 +70,11 @@ function App() {
               element={<AdminRoute element={<EditBookingPage />} />}
             />
 
+            {/* Root Route - Redirect to Home */}
+            <Route path="/" element={<Navigate to="/home" replace />} />
+            
             {/* Fallback Route */}
-            <Route path="*" element={<Navigate to="/login" />} />
+            <Route path="*" element={<Navigate to="/home" replace />} />
           </Routes>
         </div>
         <FooterComponent />
